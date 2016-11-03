@@ -69,7 +69,6 @@ buildNumber.properties
 
 ### Java ###
 *.class
-Main.java
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
