@@ -13,6 +13,7 @@ public class WorkItem {
 	private  Long id;
 	
 	private  String title;
+	private  String description;
 	private  String status;
 	
 	@ManyToOne
@@ -24,15 +25,17 @@ public class WorkItem {
 	protected WorkItem() {}
 
 	
-	public WorkItem( String title, String status, User user, Issue issue) {
+	public WorkItem( String title, String description, String status, User user, Issue issue) {
 		this.title = title;
+		this.description = description;
 		this.status = status;
 		this.user = user;
 		this.issue = issue;
 	}
 
-	public WorkItem(String title) {
+	public WorkItem(String title, String description) {
 		this.title = title;
+		this.description = description;
 		this.status = WorkItemStatus.Unstarted.toString();
 		
 	}
@@ -43,6 +46,10 @@ public class WorkItem {
 
 	public String getTitle() {
 		return title;
+	}
+	
+	public String getDescription() {
+		return description;
 	}
 
 	public String getStatus() {
