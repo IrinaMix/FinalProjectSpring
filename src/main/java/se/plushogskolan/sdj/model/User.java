@@ -18,14 +18,13 @@ public final class User {
 	
 	private String firstname;
 	private String lastname;
-	private String status;
+	private UserStatus status;
 	
 	@Column(unique = true)
 	private String username;
 	
 	@ManyToOne
 	private Team team;
-	
 	
 	public User() {}
 	
@@ -34,7 +33,7 @@ public final class User {
 		this.lastname = lastname;
 		this.username = username;
 		this.team = team;
-		this.status = "Active";
+		this.status = UserStatus.ACTIVE;
 	}
 
 	public Long getId() {
@@ -57,7 +56,7 @@ public final class User {
 		return team;
 	}
 
-	public String getStatus() {
+	public UserStatus getStatus() {
 		return status;
 	}
 	
@@ -65,10 +64,9 @@ public final class User {
 		this.team = team;
 	}
 	
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(UserStatus userStatus) {
+		this.status = userStatus;
 	}
-	
 	
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
@@ -77,8 +75,6 @@ public final class User {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-
-	
 
 	@Override
 	public String toString() {
