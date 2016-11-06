@@ -1,5 +1,7 @@
 package se.plushogskolan.sdj.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,16 @@ public class UserService {
 		return userRepository.findOne(Id);
 	}
 	
-	public User getUser(String username) {
+	public User getUserByUsername(String username) {
 		return userRepository.findByUsername(username);
+	}
+	
+	public List<User> getUserByFirstname(String firstname) {
+		return userRepository.findByFirstname(firstname);
+	}
+	
+	public List<User> getUserByLastname(String lastname) {
+		return userRepository.findByLastname(lastname);
 	}
 	
 	@Transactional
