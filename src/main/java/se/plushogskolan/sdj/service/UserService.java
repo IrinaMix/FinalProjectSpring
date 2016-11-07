@@ -75,8 +75,4 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
-	// public List<User> getAllUsersInTeam(Team team) {
-	// return userRepository.getAllUsersInTeam(team);
-	// }
-
 }
