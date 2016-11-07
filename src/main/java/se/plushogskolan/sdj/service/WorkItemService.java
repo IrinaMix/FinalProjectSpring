@@ -56,6 +56,7 @@ public class WorkItemService {
 		if(workItem==null)
 			return false;
 		workItem.setStatus(status.toString());
+		workItemRepository.save(workItem); 
 		return true;
 	}
 
