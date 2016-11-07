@@ -62,7 +62,7 @@ public class IssueService {
 		    	issueRepository.save(issue);
 		    	return issue;
 		    }else
-		    	 throw new ServiceException("Issue with new name:"+new_description+" already exists.");
+		    	 throw new ServiceException("Issue with name:"+new_description+" already exists.");
 		} catch (Exception e) {
 			throw new ServiceException("Could not update issue with id:" + issue.getId(), e);
 		}
