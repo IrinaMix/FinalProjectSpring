@@ -40,6 +40,10 @@ public class UserService {
 	public List<User> getUserByLastname(String lastname) {
 		return userRepository.findByLastname(lastname);
 	}
+	
+	public List<User> getAllUsersInTeam(Team team) {
+		return userRepository.findAllByTeam(team);
+	}
 
 	@Transactional
 	public User addUser(User user) {

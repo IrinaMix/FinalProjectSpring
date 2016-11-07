@@ -14,6 +14,7 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 //	public Team byName(@Param("name") String xyz);
 //	
 	public Team findByName(String name);
+
 	
 	
 	
