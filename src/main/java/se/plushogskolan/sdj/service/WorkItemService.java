@@ -70,6 +70,10 @@ public class WorkItemService {
 		return true;
 	}
 	
+	public List<WorkItem> findByTitleContaining(String text){
+		return workItemRepository.findByTitleContaining(text);
+	}
+	
 	public List<WorkItem> findByDescriptionContaining(String text){
 		return workItemRepository.findByDescriptionContaining(text);
 	}

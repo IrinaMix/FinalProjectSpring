@@ -24,5 +24,6 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 //    List<WorkItem> findAllByText(@Param("number") String num);
 
     List<WorkItem> findByDescriptionContaining(String text);
-
+    List<WorkItem> findByTitleContaining(String text);
+    
 }
