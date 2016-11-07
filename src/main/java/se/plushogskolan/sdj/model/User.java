@@ -18,7 +18,7 @@ public final class User {
 	
 	private String firstname;
 	private String lastname;
-	private Status status;
+	private String status;
 	
 	@Column(unique = true)
 	private String username;
@@ -33,7 +33,7 @@ public final class User {
 		this.lastname = lastname;
 		this.username = username;
 		this.team = team;
-		this.status = Status.ACTIVE;
+		this.status = Status.ACTIVE.toString();
 	}
 
 	public Long getId() {
@@ -56,7 +56,7 @@ public final class User {
 		return team;
 	}
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 	
@@ -65,7 +65,7 @@ public final class User {
 	}
 	
 	public void setStatus(Status userStatus) {
-		this.status = userStatus;
+		this.status = userStatus.toString();
 	}
 	
 	public void setFirstname(String firstname) {
