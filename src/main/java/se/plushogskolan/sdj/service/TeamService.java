@@ -28,7 +28,8 @@ public class TeamService {
 	@Transactional
 	public Team addTeam(Team team) {
 		try {
-			if (!teamRepository.exists(team.getId())) {
+			if(team.getId()==null){
+			
 				return teamRepository.save(team);
 
 			} else {
@@ -48,21 +49,25 @@ public class TeamService {
 		}
 	}
 
+	public Team findByName(String teamName){
+		Team team = teamRepository.findByName(teamName);
+		return team;
+	}
 	@Transactional
 	public void uppdateTeam(String oldName, String newName) {
 		try {
-
-			if (teamRepository.exists(teamRepository.findByName(oldName).getId())) {
-				if (!teamRepository.exists(teamRepository.findByName(newName).getId())) {
-					Team team = teamRepository.findByName(oldName);
-					team.setName(newName);
-					teamRepository.save(team);
+			Team oldTeam = teamRepository.findByName(oldName);
+			if (oldTeam != null) {
+				Team newTeam = teamRepository.findByName(newName);
+				if (newTeam == null) {
+					oldTeam.setName(newName);
+					teamRepository.save(oldTeam);
 				} else {
 					throw new ServiceException("Team with this teamname " + newName + " exists");
 
 				}
 			} else {
-				throw new ServiceException("Team with this teamname NOT exists");
+				throw new ServiceException("Team with this teamname: " + oldName +"NOT exists");
 			}
 
 		} catch (Exception e) {
@@ -74,9 +79,8 @@ public class TeamService {
 	public void deactivateTeam(String teamName) {
 
 		try {
-
-			if (teamRepository.exists(teamRepository.findByName(teamName).getId())) {
-				Team team = teamRepository.findByName(teamName);
+			Team team = teamRepository.findByName(teamName);
+			if (team !=null) {
 				team.setStatus(Status.INACTIVE.toString());
 				teamRepository.save(team);
 			} else {
