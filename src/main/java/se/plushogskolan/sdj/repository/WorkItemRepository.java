@@ -14,7 +14,8 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 
     List<WorkItem> findAllByStatus(String status);
 
-//    List<WorkItem> findAllByTeam(String team);
+    	@Query("select w from WorkItem w where w.user.team.name=:teamName")
+    List<WorkItem> findAllByTeamName(@Param("teamName") String teamName);
 
     List<WorkItem> findAllByUser(String userId);
     List<WorkItem> findAllByUser(User user);

@@ -24,19 +24,16 @@ public class WorkItemService {
 
 	@Autowired
 	public WorkItemService(WorkItemRepository workItemRepository) {
-
 		this.workItemRepository = workItemRepository;
 	}
 
+	public List<WorkItem> findAllByTeamName(String name){
+		return workItemRepository.findAllByTeamName(name);
+	}
+	
 	@Transactional
 	public List<WorkItem> getAllByStatus(String status){
 		return this.workItemRepository.findAllByStatus(status);
-	}
-
-	@Transactional
-	public List<WorkItem> getAllByTeam(String teamId){
-//		return this.workItemRepository.findAllByTeam(teamId);
-		return null;
 	}
 
 	@Transactional
