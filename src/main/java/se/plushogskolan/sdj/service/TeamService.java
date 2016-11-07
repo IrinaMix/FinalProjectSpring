@@ -21,15 +21,16 @@ public class TeamService {
 	private UserRepository userRepository;
 
 	@Autowired
-	public TeamService(TeamRepository teamRepository) {
+	public TeamService(TeamRepository teamRepository, UserRepository userRepository) {
 		this.teamRepository = teamRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Transactional
 	public Team addTeam(Team team) {
 		try {
-			if(team.getId()==null){
-			
+			if (team.getId() == null) {
+
 				return teamRepository.save(team);
 
 			} else {
@@ -49,10 +50,16 @@ public class TeamService {
 		}
 	}
 
-	public Team findByName(String teamName){
-		Team team = teamRepository.findByName(teamName);
-		return team;
+	public Team findByName(String teamName) {
+		try {
+			Team team = teamRepository.findByName(teamName);
+			return team;
+
+		} catch (Exception e) {
+			throw new ServiceException("Could not get  team "+ teamName, e);
+		}
 	}
+
 	@Transactional
 	public void uppdateTeam(String oldName, String newName) {
 		try {
@@ -67,7 +74,7 @@ public class TeamService {
 
 				}
 			} else {
-				throw new ServiceException("Team with this teamname: " + oldName +"NOT exists");
+				throw new ServiceException("Team with this teamname: " + oldName + "NOT exists");
 			}
 
 		} catch (Exception e) {
@@ -80,7 +87,7 @@ public class TeamService {
 
 		try {
 			Team team = teamRepository.findByName(teamName);
-			if (team !=null) {
+			if (team != null) {
 				team.setStatus(Status.INACTIVE.toString());
 				teamRepository.save(team);
 			} else {
@@ -93,29 +100,29 @@ public class TeamService {
 
 	}
 
-//	@Transactional
-//	public void assigneUserToTeam(String teamName, String userId) {
-//		try {
-//			if (teamRepository.exists(teamRepository.findByName(teamName).getId())) {
-//
-//				List<User> users = userRepository.findAllByTeam(teamRepository.findByName(teamName));
-//				if (users.size() < 10) {
-//					User user1 = userRepository.;
-//					team.setStatus(Status.INACTIVE.toString());
-//					this.userRepository;
-//
-//				} else {
-//					throw new ServiceException(
-//							"This team already has 10 users! (But it is allowed to have MAX 10 users in one team)");
-//				}
-//
-//			} else {
-//				throw new ServiceException("Team with this teamId NOT exists");
-//			}
-//
-//		} catch (Exception e) {
-//			throw new ServiceException("Could not update team", e);
-//		}
-//	}
+	@Transactional
+	public void assigneUserToTeam(String teamName, Long userId) {
+		try {
+			Team team = teamRepository.findByName(teamName);
+			User user = userRepository.findOne(userId);
+			if ((team != null) && (user != null)) {
+				List<User> users = userRepository.findAllByTeam(team);
+				if (users.size() < 10) {
+					user.setTeam(team);
+					userRepository.save(user);
+
+				} else {
+					throw new ServiceException(
+							"This team already has 10 users! (But it is allowed to have MAX 10 users in one team)");
+				}
+
+			} else {
+				throw new ServiceException("Team with this teamId NOT exists OR User NOT exists");
+			}
+
+		} catch (Exception e) {
+			throw new ServiceException("Could not update team", e);
+		}
+	}
 
 }
