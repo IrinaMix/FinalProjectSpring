@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import se.plushogskolan.sdj.model.User;
 import se.plushogskolan.sdj.model.WorkItem;
 import se.plushogskolan.sdj.model.WorkItem;
 import se.plushogskolan.sdj.model.WorkItemStatus;
@@ -42,6 +44,11 @@ public class WorkItemService {
 		return this.workItemRepository.findAllByUser(userId);
 	}
 
+	@Transactional
+	public List<WorkItem> getAllByUser(User user){
+		return this.workItemRepository.findAllByUser(user);
+	}
+	
 	@Transactional
 	public List<WorkItem> getAllByText(String text) {
 //		return this.workItemRepository.findAllByText(text);

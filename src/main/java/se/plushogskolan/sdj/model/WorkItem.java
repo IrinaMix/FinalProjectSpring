@@ -10,14 +10,14 @@ import javax.persistence.ManyToOne;
 public class WorkItem {
 	@Id
 	@GeneratedValue
-	private  Long id;
+	private Long id;
 	
-	private  String title;
-	private  String description;
-	private  String status;
+	private String title;
+	private String description;
+	private String status;
 	
 	@ManyToOne
-	private  User user;
+	private User user;
 	
 	@ManyToOne
 	private Issue issue;
