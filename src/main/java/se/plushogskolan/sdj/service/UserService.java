@@ -47,7 +47,7 @@ public class UserService {
 			teamRepository.save(user.getTeam());
 			return userRepository.save(user);
 		} else
-			throw new RuntimeException("Username must be atleast 10 characters long!");
+			throw new ServiceException("Username must be atleast 10 characters long!");
 	}
 
 	@Transactional
@@ -56,7 +56,7 @@ public class UserService {
 			teamRepository.save(user.getTeam());
 			return userRepository.save(user);
 		} else
-			throw new RuntimeException("Username must be atleast 10 characters long!");
+			throw new ServiceException("Username must be atleast 10 characters long!");
 	}
 
 	@Transactional
