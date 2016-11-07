@@ -42,6 +42,11 @@ public class WorkItemService {
 	}
 
 	@Transactional
+	public List<WorkItem> getAllByUser(User user){
+		return this.workItemRepository.findAllByUser(user);
+	}
+	
+	@Transactional
 	public List<WorkItem> getAllByText(String text) {
 //		return this.workItemRepository.findAllByText(text);
 		return null;

@@ -17,7 +17,8 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
     	@Query("select w from WorkItem w where w.user.team.name=:teamName")
     List<WorkItem> findAllByTeamName(@Param("teamName") String teamName);
 
-    List<WorkItem> findAllByUser(String user);
+    List<WorkItem> findAllByUser(String userId);
+    List<WorkItem> findAllByUser(User user);
 
     //I get an error on the first wi, is not expected. Why is this?
 //    @Query("select wi from #{#entityName} wi where wi.number like :number")

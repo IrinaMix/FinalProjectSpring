@@ -9,20 +9,26 @@ import org.springframework.stereotype.Service;
 
 import se.plushogskolan.sdj.model.Team;
 import se.plushogskolan.sdj.model.User;
+import se.plushogskolan.sdj.model.WorkItem;
+import se.plushogskolan.sdj.model.WorkItemStatus;
 import se.plushogskolan.sdj.model.Status;
 import se.plushogskolan.sdj.repository.TeamRepository;
 import se.plushogskolan.sdj.repository.UserRepository;
+import se.plushogskolan.sdj.repository.WorkItemRepository;
 
 @Service
 public class UserService {
 
 	private final UserRepository userRepository;
 	private final TeamRepository teamRepository;
+	private final WorkItemRepository workItemRepository;
 
 	@Autowired
-	public UserService(UserRepository userRepository, TeamRepository teamRepository) {
+	public UserService(UserRepository userRepository, TeamRepository teamRepository,
+			WorkItemRepository workItemRepository) {
 		this.userRepository = userRepository;
 		this.teamRepository = teamRepository;
+		this.workItemRepository = workItemRepository;
 	}
 
 	public User getUser(Long Id) {
@@ -40,7 +46,7 @@ public class UserService {
 	public List<User> getUserByLastname(String lastname) {
 		return userRepository.findByLastname(lastname);
 	}
-	
+
 	public List<User> getAllUsersInTeam(Team team) {
 		return userRepository.findAllByTeam(team);
 	}
@@ -66,6 +72,10 @@ public class UserService {
 	@Transactional
 	public User deactivateUser(User user) {
 		user.setStatus(Status.INACTIVE);
+		List<WorkItem> workItems = workItemRepository.findAllByUser(user);
+		for (WorkItem workItem : workItems) {
+			workItem.setStatus(WorkItemStatus.Unstarted.toString());
+		}
 		return userRepository.save(user);
 	}
 
@@ -74,9 +84,5 @@ public class UserService {
 		user.setStatus(Status.ACTIVE);
 		return userRepository.save(user);
 	}
-
-	// public List<User> getAllUsersInTeam(Team team) {
-	// return userRepository.getAllUsersInTeam(team);
-	// }
 
 }
