@@ -27,12 +27,12 @@ public class Team {
 
 	public Team(String name) {
 		this.name = name;
-		this.status = "Active";
+		this.status = Status.ACTIVE.toString();
 	}
 
 	public Team(String name, String status) {
 		this.name = name;
-		this.status = status;
+		this.status = Status.ACTIVE.toString();
 	}
 
 	public Long getId() {

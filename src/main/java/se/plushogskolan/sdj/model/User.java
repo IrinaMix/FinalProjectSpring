@@ -18,7 +18,7 @@ public final class User {
 	
 	private String firstname;
 	private String lastname;
-	private UserStatus status;
+	private Status status;
 	
 	@Column(unique = true)
 	private String username;
@@ -33,7 +33,7 @@ public final class User {
 		this.lastname = lastname;
 		this.username = username;
 		this.team = team;
-		this.status = UserStatus.ACTIVE;
+		this.status = Status.ACTIVE;
 	}
 
 	public Long getId() {
@@ -56,7 +56,7 @@ public final class User {
 		return team;
 	}
 
-	public UserStatus getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 	
@@ -64,7 +64,7 @@ public final class User {
 		this.team = team;
 	}
 	
-	public void setStatus(UserStatus userStatus) {
+	public void setStatus(Status userStatus) {
 		this.status = userStatus;
 	}
 	
