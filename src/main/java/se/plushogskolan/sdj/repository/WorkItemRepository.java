@@ -1,6 +1,8 @@
 package se.plushogskolan.sdj.repository;
 
+
 import org.springframework.data.jpa.repository.Query;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import se.plushogskolan.sdj.model.WorkItem;
@@ -18,6 +20,6 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
     @Query("select wi from #{#entityName} wi where wi.number like :number")
     List<WorkItem> findAllByText(@Param("number") String num);
 
-
+    List<WorkItem> findByDescriptionContaining(String text);
 
 }

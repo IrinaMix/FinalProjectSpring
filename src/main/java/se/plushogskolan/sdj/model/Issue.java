@@ -13,7 +13,7 @@ public class Issue {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(nullable= false)
+	@Column(nullable= false,unique = true)
 	private String description;
 	
 	
@@ -24,6 +24,10 @@ public class Issue {
 		this.description = description;
 	}
 
+	public Long getId() {
+		return id;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
