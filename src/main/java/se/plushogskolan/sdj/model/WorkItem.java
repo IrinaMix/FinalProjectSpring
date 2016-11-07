@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 @Entity
 public class WorkItem {
 	@Id
@@ -64,6 +67,14 @@ public class WorkItem {
 		return issue;
 	}
 	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
@@ -78,6 +89,6 @@ public class WorkItem {
 
 	@Override
 	public String toString() {
-		return "WorkItem[" + id + ", " + title + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
 	}
 }

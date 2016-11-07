@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+
+import se.plushogskolan.sdj.model.User;
 import se.plushogskolan.sdj.model.WorkItem;
 import java.util.List;
 
@@ -12,7 +14,8 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 
     List<WorkItem> findAllByStatus(String status);
 
-//    List<WorkItem> findAllByTeam(String team);
+    	@Query("select w from WorkItem w where w.user.team.name=:teamName")
+    List<WorkItem> findAllByTeamName(@Param("teamName") String teamName);
 
     List<WorkItem> findAllByUser(String user);
 
