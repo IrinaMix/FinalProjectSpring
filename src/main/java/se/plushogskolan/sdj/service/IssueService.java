@@ -2,6 +2,8 @@ package se.plushogskolan.sdj.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class IssueService {
 		this.workItemRepository = workItemRepository;
 	}
 
+	@Transactional
 	public Issue createIssue(Issue issue) {
 		try {
 			Issue newIssue = issueRepository.save(issue);
@@ -33,13 +36,21 @@ public class IssueService {
 
 	}
 
+	@Transactional
 	public void assignToWorkItem(Issue issue, WorkItem workItem) {
-
+		WorkItem newWorkItem = workItem;
+		Issue newIssue=issue;
 		try {
-			if (workItem.getStatus().equals("Done")) {
-				workItem.setIssue(issue);
-				workItem.setStatus(WorkItemStatus.Unstarted.toString());
-				workItemRepository.save(workItem);
+			if (issue.getId()==null){
+				newIssue=issueRepository.save(issue);
+			}
+			if (workItem.getId()==null){
+				newWorkItem = workItemRepository.save(workItem);
+			}
+			if (newWorkItem.getStatus().equals("Done")) {
+				newWorkItem.setIssue(newIssue);
+				newWorkItem.setStatus(WorkItemStatus.Unstarted.toString());
+				workItemRepository.save(newWorkItem);
 			} else {
 				throw new ServiceException("Assign issue to work item failed. Status of work item is not 'Done'");
 			}
@@ -49,6 +60,7 @@ public class IssueService {
 
 	}
 
+	@Transactional
 	public Issue updateIssue(Issue issue, String new_description) {
 		try {
 			Issue findIssue = issueRepository.findByDescription(new_description);
