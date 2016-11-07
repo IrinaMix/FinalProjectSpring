@@ -13,7 +13,6 @@ public interface IssueRepository extends CrudRepository<Issue, Long>{
     
 	Issue findByDescription(String description);
     
-	//void assignToWorkItem(Issue issue,WorkItem workItem);
     @Query("select w from WorkItem w where w.issue =:issue")
 	List<WorkItem> findAllByIssue(@Param("issue")Issue issue);
 }
