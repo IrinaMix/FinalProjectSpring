@@ -16,11 +16,9 @@ public class Issue {
 	@Column(nullable= false,unique = true)
 	private String description;
 	
-	
     protected Issue() {}
 
-	public Issue(String description) {
-		
+	public Issue(String description) {		
 		this.description = description;
 	}
 
@@ -35,6 +33,7 @@ public class Issue {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
