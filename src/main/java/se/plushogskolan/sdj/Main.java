@@ -10,9 +10,12 @@ import org.springframework.data.domain.PageRequest;
 
 import se.plushogskolan.sdj.model.Team;
 import se.plushogskolan.sdj.model.User;
+import se.plushogskolan.sdj.model.WorkItem;
+import se.plushogskolan.sdj.model.WorkItemStatus;
 import se.plushogskolan.sdj.repository.TeamRepository;
 import se.plushogskolan.sdj.service.TeamService;
 import se.plushogskolan.sdj.service.UserService;
+import se.plushogskolan.sdj.service.WorkItemService;
 
 public final class Main {
 
@@ -21,35 +24,39 @@ public final class Main {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext()) {
 			context.scan("se.plushogskolan.sdj");
 			context.refresh();
-			//TEST
-			Team team = new Team("newName06");
-//			TeamService teamService = context.getBean(TeamService.class);
-//			teamService.addTeam(team);
-			User user = new User("iman02", "tahriri", "imta030111100", team);
+			
+			WorkItemService workItemService=context.getBean(WorkItemService.class);
 			UserService userService = context.getBean(UserService.class);
-			userService.addUser(user);
+			TeamService teamService = context.getBean(TeamService.class);
+			
+			
+//			WorkItem w=new WorkItem("myTitle","mydesc");
+//			w.setStatus(WorkItemStatus.Unstarted.toString());
+//			User u=userService.getUser(2l);
+//			w.setUser(u);
+//			workItemService.create(w);
+//			System.out.println(workItemService.findAllByTeamName("newName06"));
+			
+			
+			//TEST
+//			Team team = new Team("newName06");
+//			teamService.addTeam(team);
+//			User user = new User("iman02", "tahriri", "imta030111100", team);
+//			userService.addUser(user);
 //			User user = userService.getUser((long) 21);
 //			User user = userService.getUserByUsername("imta01");
 //			List<User> users = userService.getUserByFirstname("firstname");
 //			List<User> users = userService.getUserByLastname("lastname");
-			
 //			List<User> users = userService.getAllUsersInTeam(team);
-			
-			
 			
 //			userService.deactivateUser(user);
 //			System.out.println(users.size());
-					
 //			teamService.addTeam(team);
-			//test
 //			teamService.deactivateTeam("teamTest");
-			
 //			teamService.findAllTeams().forEach(System.out::println);
-//		.uppdateTeam("newName", "newNameTEST");
 			
 //			Employee employee1 = new Employee("Luke", "Skywalker", "1001", new Address("street1", "postal1", "zip1"));
 //			Employee employee2 = new Employee("Leia", "Skywalker", "1001", new Address("street2", "postal2", "zip2"));
-//			
 //			EmployeeService  service = context.getBean(EmployeeService.class);
 //			service.addEmployee(employee1);
 //			service.addEmployee(employee2);
