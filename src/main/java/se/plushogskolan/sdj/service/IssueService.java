@@ -28,12 +28,16 @@ public class IssueService {
 	@Transactional
 	public Issue createIssue(Issue issue) {
 		try {
+		  if (issue.getId()==null){
 			Issue newIssue = issueRepository.save(issue);
 			return newIssue;
+		  }else{
+			  throw new ServiceException("Create issue " + issue.getDescription() + " failed. Issue already exists");
+		  }
 		} catch (Exception e) {
 			throw new ServiceException("Create issue " + issue.getDescription() + " failed", e);
 		}
-
+        
 	}
 
 	@Transactional
@@ -63,15 +67,19 @@ public class IssueService {
 	@Transactional
 	public Issue updateIssue(Issue issue, String new_description) {
 		try {
+			Issue newIssue=issue;
+			if (issue.getId()==null){
+				newIssue = issueRepository.save(issue);
+			}
 			Issue findIssue = issueRepository.findByDescription(new_description);
 			if (!issueRepository.exists(issue.getId())) {
 				throw new ServiceException(
 						"Could not update issue.Issue:" + issue.getDescription() + " doesn't exist.");
 			}
 			if (findIssue == null) {
-				issue.setDescription(new_description);
-				issueRepository.save(issue);
-				return issue;
+				newIssue.setDescription(new_description);
+				issueRepository.save(newIssue);
+				return newIssue;
 			} else
 				throw new ServiceException("Issue with name:" + new_description + " already exists.");
 		} catch (Exception e) {
