@@ -33,7 +33,8 @@ public class WorkItemService {
 
 	@Transactional
 	public List<WorkItem> getAllByTeam(String teamId){
-		return this.workItemRepository.findAllByTeam(teamId);
+//		return this.workItemRepository.findAllByTeam(teamId);
+		return null;
 	}
 
 	@Transactional
@@ -43,7 +44,8 @@ public class WorkItemService {
 
 	@Transactional
 	public List<WorkItem> getAllByText(String text) {
-		return this.workItemRepository.findAllByText(text);
+//		return this.workItemRepository.findAllByText(text);
+		return null;
 	}
 
 	public WorkItem create(WorkItem workItem){
