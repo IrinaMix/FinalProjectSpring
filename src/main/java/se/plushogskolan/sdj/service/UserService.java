@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import se.plushogskolan.sdj.model.Team;
 import se.plushogskolan.sdj.model.User;
-import se.plushogskolan.sdj.model.UserStatus;
+import se.plushogskolan.sdj.model.Status;
 import se.plushogskolan.sdj.repository.TeamRepository;
 import se.plushogskolan.sdj.repository.UserRepository;
 
@@ -61,13 +61,13 @@ public class UserService {
 
 	@Transactional
 	public User deactivateUser(User user) {
-		user.setStatus(UserStatus.INACTIVE);
+		user.setStatus(Status.INACTIVE);
 		return userRepository.save(user);
 	}
 
 	@Transactional
 	public User activateUser(User user) {
-		user.setStatus(UserStatus.ACTIVE);
+		user.setStatus(Status.ACTIVE);
 		return userRepository.save(user);
 	}
 

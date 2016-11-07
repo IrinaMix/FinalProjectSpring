@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import se.plushogskolan.sdj.service.ServiceException;
+import se.plushogskolan.sdj.model.Status;
 import se.plushogskolan.sdj.model.Team;
 import se.plushogskolan.sdj.model.User;
 import se.plushogskolan.sdj.repository.TeamRepository;
@@ -45,14 +46,14 @@ public class TeamService {
 	@Transactional
 	public void deactivateTeam(String teamName) {
 		Team team = teamRepository.findByName(teamName);
-		team.setStatus("Inactive");
+		team.setStatus(Status.INACTIVE.toString());
 		teamRepository.save(team);
 	}
 
 	@Transactional
 	public void assigneUserToTeam(String teamName, User user) {
 		Team team = teamRepository.findByName(teamName);
-		team.setStatus("Inactive");
+		//team.setStatus("Inactive");
 		teamRepository.save(team);
 	}
 
