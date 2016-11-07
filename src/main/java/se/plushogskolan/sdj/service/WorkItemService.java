@@ -98,7 +98,7 @@ public class WorkItemService {
 	 * @return
      */
 	public boolean checkNumberofWorkItems(User user){
-		if(this.workItemRepository.findAllByUser(user).size()<=5){
+		if(this.workItemRepository.findAllByUser(user).size() < 5){
 			return true;
 		}
 		else{
