@@ -32,26 +32,20 @@ public class WorkItemService {
 	}
 	
 	@Transactional
-	public List<WorkItem> getAllByStatus(String status){
+	public List<WorkItem> findAllByStatus(String status){
 		return this.workItemRepository.findAllByStatus(status);
 	}
 
 	@Transactional
-	public List<WorkItem> getAllByUser(String userId){
+	public List<WorkItem> findAllByUser(Long userId){
 		return this.workItemRepository.findAllByUser(userId);
 	}
 
 	@Transactional
-	public List<WorkItem> getAllByUser(User user){
+	public List<WorkItem> findAllByUser(User user){
 		return this.workItemRepository.findAllByUser(user);
 	}
 	
-	@Transactional
-	public List<WorkItem> getAllByText(String text) {
-//		return this.workItemRepository.findAllByText(text);
-		return null;
-	}
-
 	public WorkItem create(WorkItem workItem){
 		return workItemRepository.save(workItem);
 	}

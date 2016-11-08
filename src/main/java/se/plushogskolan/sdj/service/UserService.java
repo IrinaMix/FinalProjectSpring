@@ -52,7 +52,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public User addUser(User user) {
+	public User createUser(User user) {
 		if (user.getUsername().length() >= 10) {
 			teamRepository.save(user.getTeam());
 			return userRepository.save(user);

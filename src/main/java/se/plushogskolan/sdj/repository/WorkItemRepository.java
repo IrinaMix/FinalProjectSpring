@@ -12,7 +12,7 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 
 	List<WorkItem> findAllByStatus(String status);
 
-	List<WorkItem> findAllByUser(String userId);
+	List<WorkItem> findAllByUser(long userId);
 
 	List<WorkItem> findAllByUser(User user);
 

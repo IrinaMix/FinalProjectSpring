@@ -27,7 +27,7 @@ public class TeamService {
 	}
 
 	@Transactional
-	public Team addTeam(Team team) {
+	public Team createTeam(Team team) {
 		try {
 			if (team.getId() == null) {
 

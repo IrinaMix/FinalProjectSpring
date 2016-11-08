@@ -8,11 +8,14 @@ import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import se.plushogskolan.sdj.model.Issue;
 import se.plushogskolan.sdj.model.Team;
 import se.plushogskolan.sdj.model.User;
 import se.plushogskolan.sdj.model.WorkItem;
 import se.plushogskolan.sdj.model.WorkItemStatus;
 import se.plushogskolan.sdj.repository.TeamRepository;
+import se.plushogskolan.sdj.repository.WorkItemRepository;
+import se.plushogskolan.sdj.service.IssueService;
 import se.plushogskolan.sdj.service.TeamService;
 import se.plushogskolan.sdj.service.UserService;
 import se.plushogskolan.sdj.service.WorkItemService;
@@ -28,6 +31,28 @@ public final class Main {
 			WorkItemService workItemService=context.getBean(WorkItemService.class);
 			UserService userService = context.getBean(UserService.class);
 			TeamService teamService = context.getBean(TeamService.class);
+			IssueService issueService = context.getBean(IssueService.class);
+			
+			Team team=new Team("theTeam");
+//			teamService.createTeam(team);
+			teamService.uppdateTeam("theTeam", "theTeam2");
+			User user=new User("fn","ln","usernamaaaaaa",team);
+//			userService.createUser(user);
+			userService.updateUser(user);
+			Issue issue=new Issue("this is an issue");
+//			issueService.createIssue(issue);
+			issueService.updateIssue(issue, "new_description");
+			WorkItem workItem=new WorkItem("title","desc",WorkItemStatus.Started.toString(),user,issue);
+//			workItemService.create(workItem);
+			workItemService.updateStatus(id, status);
+			
+			
+			
+			
+//			System.out.println(workItemService.findAllByStatus(WorkItemStatus.Started.toString()));
+//			List<User> u=userService.getUserByFirstname("iman02");
+//			System.out.println(workItemService.findAllByUser(u.get(0)));
+//			System.out.println(workItemService.findByDescriptionContaining("de"));
 			
 			
 //			WorkItem w=new WorkItem("myTitle","mydesc");
