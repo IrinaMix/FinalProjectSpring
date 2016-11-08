@@ -55,7 +55,15 @@ public class UserService {
 	public User createUser(User user) {
 		if (user.getUsername().length() >= 10) {
 			teamRepository.save(user.getTeam());
-			return userRepository.save(user);
+			List<User> users = userRepository.findAllByTeam(user.getTeam());
+			if (users.size() < 10) {
+				return userRepository.save(user);
+
+			} else {
+				throw new ServiceException(
+						"This team already has 10 users! (But it is allowed to have MAX 10 users in one team)");
+			}
+
 		} else
 			throw new ServiceException("Username must be atleast 10 characters long!");
 	}
@@ -64,7 +72,14 @@ public class UserService {
 	public User updateUser(User user) {
 		if (user.getUsername().length() >= 10) {
 			teamRepository.save(user.getTeam());
-			return userRepository.save(user);
+			List<User> users = userRepository.findAllByTeam(user.getTeam());
+			if (users.size() < 10) {
+				return userRepository.save(user);
+
+			} else {
+				throw new ServiceException(
+						"This team already has 10 users! (But it is allowed to have MAX 10 users in one team)");
+			}
 		} else
 			throw new ServiceException("Username must be atleast 10 characters long!");
 	}
