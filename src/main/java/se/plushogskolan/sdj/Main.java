@@ -44,7 +44,7 @@ public final class Main {
 			issueService.updateIssue(issue, "new_description");
 			WorkItem workItem=new WorkItem("title","desc",WorkItemStatus.Started.toString(),user,issue);
 //			workItemService.create(workItem);
-			workItemService.updateStatus(id, status);
+//			workItemService.updateStatus(id, status);
 			
 			
 			
