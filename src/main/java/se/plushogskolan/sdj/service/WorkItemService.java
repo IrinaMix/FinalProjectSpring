@@ -67,6 +67,10 @@ public class WorkItemService {
 		return true;
 	}
 	
+	public boolean delete(WorkItem workItem){
+		return delete(workItem.getId());
+	}
+	
 	public List<WorkItem> findByTitleContaining(String text){
 		return workItemRepository.findByTitleContaining(text);
 	}
