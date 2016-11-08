@@ -2,6 +2,8 @@ package se.plushogskolan.sdj.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,23 +25,36 @@ public class IssueService {
 		this.workItemRepository = workItemRepository;
 	}
 
+	@Transactional
 	public Issue createIssue(Issue issue) {
 		try {
+		  if (issue.getId()==null){
 			Issue newIssue = issueRepository.save(issue);
 			return newIssue;
+		  }else{
+			  throw new ServiceException("Create issue " + issue.getDescription() + " failed. Issue already exists");
+		  }
 		} catch (Exception e) {
 			throw new ServiceException("Create issue " + issue.getDescription() + " failed", e);
 		}
-
+        
 	}
 
+	@Transactional
 	public void assignToWorkItem(Issue issue, WorkItem workItem) {
-
+		WorkItem newWorkItem = workItem;
+		Issue newIssue=issue;
 		try {
-			if (workItem.getStatus().equals("Done")) {
-				workItem.setIssue(issue);
-				workItem.setStatus(WorkItemStatus.Unstarted.toString());
-				workItemRepository.save(workItem);
+			if (issue.getId()==null){
+				newIssue=issueRepository.save(issue);
+			}
+			if (workItem.getId()==null){
+				newWorkItem = workItemRepository.save(workItem);
+			}
+			if (newWorkItem.getStatus().equals("Done")) {
+				newWorkItem.setIssue(newIssue);
+				newWorkItem.setStatus(WorkItemStatus.Unstarted.toString());
+				workItemRepository.save(newWorkItem);
 			} else {
 				throw new ServiceException("Assign issue to work item failed. Status of work item is not 'Done'");
 			}
@@ -49,17 +64,22 @@ public class IssueService {
 
 	}
 
+	@Transactional
 	public Issue updateIssue(Issue issue, String new_description) {
 		try {
+			Issue newIssue=issue;
+			if (issue.getId()==null){
+				newIssue = issueRepository.save(issue);
+			}
 			Issue findIssue = issueRepository.findByDescription(new_description);
 			if (!issueRepository.exists(issue.getId())) {
 				throw new ServiceException(
 						"Could not update issue.Issue:" + issue.getDescription() + " doesn't exist.");
 			}
 			if (findIssue == null) {
-				issue.setDescription(new_description);
-				issueRepository.save(issue);
-				return issue;
+				newIssue.setDescription(new_description);
+				issueRepository.save(newIssue);
+				return newIssue;
 			} else
 				throw new ServiceException("Issue with name:" + new_description + " already exists.");
 		} catch (Exception e) {

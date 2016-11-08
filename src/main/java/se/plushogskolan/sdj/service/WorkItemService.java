@@ -7,10 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import se.plushogskolan.sdj.model.User;
+import se.plushogskolan.sdj.model.*;
 import se.plushogskolan.sdj.model.WorkItem;
-import se.plushogskolan.sdj.model.WorkItem;
-import se.plushogskolan.sdj.model.WorkItemStatus;
 import se.plushogskolan.sdj.repository.UserRepository;
 import se.plushogskolan.sdj.repository.WorkItemRepository;
 
@@ -75,5 +73,30 @@ public class WorkItemService {
 	
 	public List<WorkItem> findByDescriptionContaining(String text){
 		return workItemRepository.findByDescriptionContaining(text);
+	}
+
+	@Transactional
+	public void addWorkItemToUser(WorkItem workItem, User user){
+		if( user.getStatus().equals(Status.ACTIVE.toString()) && checkNumberofWorkItems(user)){
+			workItem.setUser(user);
+			this.workItemRepository.save(workItem);
+		}
+		else{
+			throw new ServiceException("Can not add a user to work item.");
+		}
+	}
+
+	/**
+	 * This method checks to see if there are 5 work items or less assigned to a user.
+	 * @param user
+	 * @return
+     */
+	public boolean checkNumberofWorkItems(User user){
+		if(this.workItemRepository.findAllByUser(user).size() < 5){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }

@@ -1,6 +1,5 @@
 package se.plushogskolan.sdj.model;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,10 +10,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Entity
 public class WorkItem {
+	
 	@Id
 	@GeneratedValue
 	private Long id;
-	
 	private String title;
 	private String description;
 	private String status;
@@ -26,9 +25,8 @@ public class WorkItem {
 	private Issue issue;
 	
 	protected WorkItem() {}
-
 	
-	public WorkItem( String title, String description, String status, User user, Issue issue) {
+	public WorkItem(String title, String description, String status, User user, Issue issue) {
 		this.title = title;
 		this.description = description;
 		this.status = status;
@@ -40,7 +38,6 @@ public class WorkItem {
 		this.title = title;
 		this.description = description;
 		this.status = WorkItemStatus.Unstarted.toString();
-		
 	}
 
 	public Long getId() {
