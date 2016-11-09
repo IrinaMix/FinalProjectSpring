@@ -7,13 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import se.plushogskolan.sdj.model.*;
+import se.plushogskolan.sdj.model.Status;
+import se.plushogskolan.sdj.model.User;
 import se.plushogskolan.sdj.model.WorkItem;
-import se.plushogskolan.sdj.repository.UserRepository;
+import se.plushogskolan.sdj.model.WorkItemStatus;
 import se.plushogskolan.sdj.repository.WorkItemRepository;
-
-import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class WorkItemService {
@@ -30,8 +28,8 @@ public class WorkItemService {
 	}
 	
 	@Transactional
-	public List<WorkItem> findAllByStatus(String status){
-		return this.workItemRepository.findAllByStatus(status);
+	public List<WorkItem> findAllByStatus(WorkItemStatus status){
+		return this.workItemRepository.findAllByStatus(status.toString());
 	}
 
 	@Transactional
@@ -44,8 +42,9 @@ public class WorkItemService {
 		return this.workItemRepository.findAllByUser(user);
 	}
 	
+	@Transactional
 	public WorkItem create(WorkItem workItem){
-		return workItemRepository.save(workItem);
+		return	this.workItemRepository.save(workItem);
 	}
 	
 	@Transactional
@@ -86,7 +85,7 @@ public class WorkItemService {
 			this.workItemRepository.save(workItem);
 		}
 		else{
-			throw new ServiceException("Can not add a user to work item.");
+			throw new ServiceException("Can not add a user to work item. User is not active or already has more than 5 work items.");
 		}
 	}
 

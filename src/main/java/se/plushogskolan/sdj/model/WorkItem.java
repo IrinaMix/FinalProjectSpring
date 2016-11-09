@@ -1,5 +1,6 @@
 package se.plushogskolan.sdj.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,12 +27,10 @@ public class WorkItem {
 	
 	protected WorkItem() {}
 	
-	public WorkItem(String title, String description, String status, User user, Issue issue) {
+	public WorkItem(String title, String description, String status) {
 		this.title = title;
 		this.description = description;
 		this.status = status;
-		this.user = user;
-		this.issue = issue;
 	}
 
 	public WorkItem(String title, String description) {
