@@ -102,5 +102,13 @@ public class IssueService {
 			throw new ServiceException("Could not get issue with name:" + name, e);
 		}
 	}
+	
+	public Issue getIssueById(Long id){
+		try {
+			return issueRepository.findOne(id);
+		} catch (Exception e) {
+			throw new ServiceException("Could not get issue with id:" + id, e);
+		}
+	}
 
 }
