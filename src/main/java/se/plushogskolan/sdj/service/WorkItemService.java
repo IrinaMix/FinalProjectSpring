@@ -48,25 +48,25 @@ public class WorkItemService {
 	}
 	
 	@Transactional
-	public boolean updateStatus(Long id, WorkItemStatus status){
+	public WorkItem updateStatus(Long id, WorkItemStatus status){
 		WorkItem workItem=workItemRepository.findOne(id);
 		if(workItem==null)
-			return false;
+			throw new ServiceException("Update status failed. WorkItem with id:"+id+" is null");
 		workItem.setStatus(status.toString());
 		workItemRepository.save(workItem); 
-		return true;
+		return workItem;
 	}
 
 	@Transactional
-	public boolean delete(Long id){
+	public WorkItem delete(Long id){
 		WorkItem workItem=workItemRepository.findOne(id);
 		if(workItem==null)
-			return false;
+			throw new ServiceException("Delete failed. WorkItem with id:"+id+" dosen't exist.");
 		workItemRepository.delete(workItem);
-		return true;
+		return workItem;
 	}
 	
-	public boolean delete(WorkItem workItem){
+	public WorkItem delete(WorkItem workItem){
 		return delete(workItem.getId());
 	}
 	
